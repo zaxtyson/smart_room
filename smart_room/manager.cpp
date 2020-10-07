@@ -18,11 +18,11 @@ RoomManager::~RoomManager()
     delete esp;
 }
 
-void RoomManager::CheckWifiConnection()
+void RoomManager::CheckServerConnection()
 {
     for (int i = 0; i < MAX_CONNECT_TIMES; i++)
     {
-        if (wifi->ConnectWifi())
+        if (wifi->ConnectWifi() && client->ConnectServer())
             return;
     }
 }

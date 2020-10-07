@@ -6,7 +6,7 @@ void setup()
 {
   Serial.begin(115200);
   manager = new RoomManager();
-  manager->CheckWifiConnection();
+  manager->CheckServerConnection();
   manager->CheckFingerprintModule();
 }
 

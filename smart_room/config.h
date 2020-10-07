@@ -22,7 +22,7 @@ const uint8_t PIN_FP_TX = 4;      // D2 指纹模块 TX 线接口
 const uint8_t PIN_FP_RX = 5;      // D1 指纹模块 RX 线接口
 
 // 其它配置
-const int MAX_CONNECT_TIMES = 3;         // wifi 连接重连次数
+const int MAX_CONNECT_TIMES = 3;         // 上电后连接服务器最大重连次数(早上来电路由器开机要点时间)
 const int SMART_CONFIG_TIMEOUT = 30;     // 智能配网超时(s)
 const uint32_t FINGERPRINT_PASSWORD = 0; // 指纹模块连接密码
 
