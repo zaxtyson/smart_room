@@ -38,9 +38,8 @@ String Hmac256(String str, String ds)
 bool WiFiManager::AutoConfig()
 {
   Serial.print("\nAutoConfig Wifi");
-  WiFi.mode(WIFI_STA);
   WiFi.begin();
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < WIFI_CONNECT_TIMEOUT * 2; i++)
   {
     if (WiFi.status() == WL_CONNECTED)
     {
@@ -52,7 +51,7 @@ bool WiFiManager::AutoConfig()
 
     Serial.print(".");
     LedBlink(1, 100);
-    delay(900);
+    delay(400);
   }
   Serial.println("\nAutoConfig Faild!");
   return false;
@@ -60,10 +59,9 @@ bool WiFiManager::AutoConfig()
 
 bool WiFiManager::SmartConfig()
 {
-  WiFi.mode(WIFI_STA);
   Serial.println("\nWaiting for Smartconfig");
   WiFi.beginSmartConfig();
-  for (int i = 0; i <= SMART_CONFIG_TIMEOUT * 2; i++)
+  for (int i = 0; i <= WIFI_CONNECT_TIMEOUT * 2; i++)
   {
     Serial.print(".");
     if (WiFi.smartConfigDone())
@@ -77,6 +75,7 @@ bool WiFiManager::SmartConfig()
     LedBlink(1, 100);
     delay(400);
   }
+  WiFi.stopSmartConfig();
   return false;
 }
 
@@ -88,6 +87,7 @@ bool WiFiManager::ConnectWifi()
   if (AutoConfig()) // 尝试连接上次保存的 Wifi
     return true;
 
+  LedBlink(1, 1000);
   if (SmartConfig()) // 使用手机智能配网
     return true;
 
